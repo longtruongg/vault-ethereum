@@ -423,6 +423,7 @@ func (b *PluginBackend) pathAccountsCreate(ctx context.Context, req *logical.Req
 			"address":    account.Address.Hex(),
 			"inclusions": accountJSON.Inclusions,
 			"exclusions": accountJSON.Exclusions,
+			"mnemonic":   accountJSON.Mnemonic,
 		},
 	}, nil
 }
