@@ -379,14 +379,14 @@ func (b *PluginBackend) pathAccountsCreate(ctx context.Context, req *logical.Req
 		return nil, err
 	}
 	name := data.Get("name").(string)
-	var inclusions []string
-	if inclusionsRaw, ok := data.GetOk("inclusions"); ok {
-		inclusions = inclusionsRaw.([]string)
-	}
-	var exclusions []string
-	if exclusionsRaw, ok := data.GetOk("exclusions"); ok {
-		exclusions = exclusionsRaw.([]string)
-	}
+	//var inclusions []string
+	//if inclusionsRaw, ok := data.GetOk("inclusions"); ok {
+	//	inclusions = inclusionsRaw.([]string)
+	//}
+	//var exclusions []string
+	//if exclusionsRaw, ok := data.GetOk("exclusions"); ok {
+	//	exclusions = exclusionsRaw.([]string)
+	//}
 	index := data.Get("index").(int)
 	mnemonic := data.Get("mnemonic").(string)
 	if mnemonic == Empty {
@@ -403,10 +403,10 @@ func (b *PluginBackend) pathAccountsCreate(ctx context.Context, req *logical.Req
 		return nil, err
 	}
 	accountJSON := &AccountJSON{
-		Index:      index,
-		Mnemonic:   mnemonic,
-		Inclusions: util.Dedup(inclusions),
-		Exclusions: util.Dedup(exclusions),
+		Index:    index,
+		Mnemonic: mnemonic,
+		//Inclusions: util.Dedup(inclusions),
+		//Exclusions: util.Dedup(exclusions),
 	}
 	_, account, err := getWalletAndAccount(*accountJSON)
 	if err != nil {
@@ -420,10 +420,10 @@ func (b *PluginBackend) pathAccountsCreate(ctx context.Context, req *logical.Req
 
 	return &logical.Response{
 		Data: map[string]interface{}{
-			"address":    account.Address.Hex(),
-			"inclusions": accountJSON.Inclusions,
-			"exclusions": accountJSON.Exclusions,
-			"mnemonic":   accountJSON.Mnemonic,
+			"address": account.Address.Hex(),
+			//"inclusions": accountJSON.Inclusions,
+			//"exclusions": accountJSON.Exclusions,
+			"mnemonic": accountJSON.Mnemonic,
 		},
 	}, nil
 }
